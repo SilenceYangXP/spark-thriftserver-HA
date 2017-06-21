@@ -1,6 +1,5 @@
 # Kylin Spark Thriftserver Project
-Spark SQL
-=========
+## Spark SQL
 
 This module provides support for executing relational queries expressed in either SQL or the DataFrame/Dataset API.
 
