@@ -31,11 +31,11 @@ Kylin Spark Thriftserver Project, implement Thriftserver HA with zookeeper
 
 ## Requirements
 目前已经在以下版本中测试发布：
-> Java version = 1.8.0_60
-> Scala version = 2.11.8
-> Spark version = 2.1.1
-> Hive version =  1.2.1
-> Hadoop version = 2.7.3
+> Java version = 1.8.0_60  
+> Scala version = 2.11.8  
+> Spark version = 2.1.1  
+> Hive version =  1.2.1  
+> Hadoop version = 2.7.3  
 
 
 ## Contributing
