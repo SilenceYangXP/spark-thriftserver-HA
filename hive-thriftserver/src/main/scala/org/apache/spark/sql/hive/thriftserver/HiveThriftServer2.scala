@@ -36,6 +36,7 @@ import org.apache.spark.scheduler.{SparkListener, SparkListenerApplicationEnd, S
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.hive.HiveUtils
 import org.apache.spark.sql.hive.thriftserver.ReflectionUtils._
+import org.apache.spark.sql.hive.thriftserver.ha.ThriftServerHA
 import org.apache.spark.sql.hive.thriftserver.ui.ThriftServerTab
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.util.{ShutdownHookManager, Utils}
@@ -106,6 +107,12 @@ object HiveThriftServer2 extends Logging {
       if (SparkSQLEnv.sparkContext.stopped.get()) {
         logError("SparkContext has stopped even if HiveServer2 has started, so exit")
         System.exit(-1)
+      }
+      // [SPARK-kylin][sql] Kylin Spark ThriftServer Project, implement HA with zookeeper
+      if (SparkSQLEnv.sparkContext.getConf.getBoolean("spark.thriftserver.zookeeper.ha", false)) {
+        logInfo("Starting thriftserver zookeeper HA")
+        val test = new ThriftServerHA(SparkSQLEnv.sparkContext, server.instanceURI)
+        test.addServerInstanceToZooKeeper()
       }
     } catch {
       case e: Exception =>
@@ -275,6 +282,8 @@ private[hive] class HiveThriftServer2(sqlContext: SQLContext)
   // state is tracked internally so that the server only attempts to shut down if it successfully
   // started, and then once only.
   private val started = new AtomicBoolean(false)
+  // [SPARK-kylin][sql] Kylin Spark ThriftServer Project, implement HA with zookeeper
+  private var instanceURI = ""
 
   override def init(hiveConf: HiveConf) {
     val sparkSqlCliService = new SparkSQLCLIService(this, sqlContext)
@@ -290,6 +299,11 @@ private[hive] class HiveThriftServer2(sqlContext: SQLContext)
     setSuperField(this, "thriftCLIService", thriftCliService)
     addService(thriftCliService)
     initCompositeService(hiveConf)
+
+    // [SPARK-kylin][sql] Kylin Spark ThriftServer Project, implement HA with zookeeper
+    instanceURI = thriftCliService
+      .getServerIPAddress()
+      .getHostAddress + ":" + thriftCliService.getPortNumber()
   }
 
   private def isHTTPTransportMode(hiveConf: HiveConf): Boolean = {
