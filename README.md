@@ -17,15 +17,23 @@ Kylin Spark Thriftserver Project, implement Thriftserver HA with zookeeper
 2、不同用户JDBC提交的sql任务都跑在ThriftServer队列  
 
 **该项目改进：**  
-1、ThriftServer HA  
-2、client JDBC连接使用zookeeper连接串  
+1、ThriftServer HA (released in branch-2.1)  
+2、client JDBC使用zookeeper连接串 (released in branch-2.2)  
 3、不同用户提交的sql跑在自己的队列  
 
 ## Notices
 
 ```
-该项目通过二次开发、打包Spark，已经投入PE。
-目前暂时开源部分代码，后续将逐步开源所有源代码，Have Fun！
+该项目通过二次开发、部署Spark，已经投入PE。
+目前暂时开源部分代码，后续将逐步开源所有源代码。
+Have Fun！
+```
+
+## Releases
+
+```
+spark-thriftserver-HA-2.1.0
+spark-thriftserver-HA-2.2.0
 ```
 
 ## Requirements
