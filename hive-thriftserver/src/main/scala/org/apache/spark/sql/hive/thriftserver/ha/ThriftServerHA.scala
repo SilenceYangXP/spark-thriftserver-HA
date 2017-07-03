@@ -95,7 +95,7 @@ private[hive] class ThriftServerHA (sparkContext: SparkContext, initInstanceURI:
         .retryPolicy(new ExponentialBackoffRetry(baseSleepTime, maxRetries))
         .build()
     zooKeeperClient.start()
-    try{
+    try {
       if (zooKeeperClient.getChildren.forPath("/").contains(rootNamespace)) {
         logWarning(
           "You have created the root name space: " +
@@ -129,7 +129,7 @@ private[hive] class ThriftServerHA (sparkContext: SparkContext, initInstanceURI:
       zooKeeperClient, PersistentEphemeralNode.Mode.EPHEMERAL_SEQUENTIAL,
       pathPrefix, znodeDataUTF8)
     znode.start()
-    try{
+    try {
       val znodeCreationTimeout = 120
       if (!znode.waitForInitialCreate(znodeCreationTimeout, TimeUnit.SECONDS)) {
         throw new Exception("Max znode creation wait time: " +

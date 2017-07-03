@@ -29,12 +29,12 @@ import org.apache.spark.internal.Logging
 
 /**
  * This is a optional user api for ThriftServer HA client
- * to pick a thriftserver randomly from zookeeper with giving zkQuorum and zkNamespace
+ * to pick a thriftserver randomly from zookeeper with given zkQuorum and zkNamespace
  * Moreover, you can use hive jdbc driver directly!
  * Created by jinjuting on 2017/6/30-10:22.
  */
 private[hive] class ThriftServerHAClient(zkQuorum: String, zkNamespace: String)
-  extends HiveServer2 with Logging{
+  extends HiveServer2 with Logging {
   var jdbcURL = ""
   private val zooKeeperClient = CuratorFrameworkFactory
     .builder
