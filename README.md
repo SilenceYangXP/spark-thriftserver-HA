@@ -12,10 +12,6 @@ Spark SQL is broken up into four subprojects:
 ## Kylin Spark Thriftserver Project
 Kylin Spark Thriftserver Project, implement Thriftserver HA with zookeeper
 
-**目前社区的Spark ThriftServer有以下缺点：**  
-1、不支持HA  
-2、不同用户JDBC提交的sql任务都跑在ThriftServer队列  
-
 **该项目改进：**  
 1、ThriftServer HA (released in branch-2.1)  
 2、client JDBC使用zookeeper连接串 (released in branch-2.2)  
@@ -43,10 +39,6 @@ spark-thriftserver-HA-2.2.0
 > Spark version = 2.1.1  
 > Hive version =  1.2.1  
 > Hadoop version = 2.7.3  
-
-
-## Contributing
-Please review the Contribution to Kylin Spark Thriftserver Project for information on how to get started contributing to the project.
 
 
 
